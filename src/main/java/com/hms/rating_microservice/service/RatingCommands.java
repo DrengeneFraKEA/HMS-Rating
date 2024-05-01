@@ -1,4 +1,5 @@
 package com.hms.rating_microservice.service;
 
-public class RatingCommands {
+public interface RatingCommands {
+
 }
