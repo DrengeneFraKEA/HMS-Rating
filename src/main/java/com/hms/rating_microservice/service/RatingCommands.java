@@ -1,5 +1,8 @@
 package com.hms.rating_microservice.service;
 
-public interface RatingCommands {
+import com.hms.rating_microservice.dto.RatingInfo;
 
+public interface RatingCommands {
+    RatingInfo createRating(RatingInfo ratingInfo);
+    RatingInfo deleteRating(RatingInfo ratingInfo);
 }

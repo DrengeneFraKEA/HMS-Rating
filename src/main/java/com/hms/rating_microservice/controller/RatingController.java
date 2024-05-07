@@ -6,9 +6,7 @@ import com.hms.rating_microservice.service.RatingQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,16 +15,22 @@ import java.util.List;
 public class RatingController {
 
     private RatingQueries queries;
-   // private RatingCommands commands;
+    private RatingCommands commands;
     @Autowired
-    public RatingController(RatingQueries queries) {
+    public RatingController(RatingQueries queries, RatingCommands commands) {
         this.queries = queries;
-       // this.commands = commands;
+        this.commands = commands;
     }
 
-    @GetMapping("ratings")
+    @GetMapping("rating")
     public ResponseEntity<List<RatingInfo>> getAllRatings(){
         return new ResponseEntity<>(queries.getAllRatings(), HttpStatus.OK);
+    }
+
+    @PostMapping("rating/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<RatingInfo> createRating(@RequestBody RatingInfo ratingInfo){
+        return new ResponseEntity<>(commands.createRating(ratingInfo), HttpStatus.CREATED);
     }
 
 }

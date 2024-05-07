@@ -15,4 +15,12 @@ public class Rating {
     private List<RatingDescription> ratingDescriptionList;
     @OneToMany(mappedBy = "rating", cascade = CascadeType.PERSIST)
     private List<RatingRemoved> ratingRemovedList;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

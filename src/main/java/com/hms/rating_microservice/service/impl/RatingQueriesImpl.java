@@ -28,6 +28,8 @@ public class RatingQueriesImpl  implements RatingQueries {
     private RatingInfo mapToDTO(UUID uuid, RatingDescription ratingDescription){
         RatingInfo ratingInfo = new RatingInfo();
         ratingInfo.setUuid(uuid);
+        ratingInfo.setId(ratingDescription.getId());
+        ratingInfo.setRating(ratingDescription.getRating());
         ratingInfo.setPatientId(ratingDescription.getPatientId());
         ratingInfo.setDoctorId(ratingDescription.getDoctorId());
         ratingInfo.setTitle(ratingDescription.getTitle());
