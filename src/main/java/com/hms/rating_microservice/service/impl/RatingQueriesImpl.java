@@ -7,8 +7,7 @@ import com.hms.rating_microservice.service.RatingQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +21,16 @@ public class RatingQueriesImpl  implements RatingQueries {
     @Override
     public List<RatingInfo> getAllRatings() {
         List<RatingDescription> ratings = ratingRepository.findAll();
-        return ratings.stream().map(r -> mapToDTO(r.getUuid(), r)).collect(Collectors.toList());
+
+        Map<Integer, Optional<RatingDescription>> latestRatings = ratings.stream()
+                .collect(Collectors.groupingBy(r -> r.getRating().getId(),
+                        Collectors.maxBy(Comparator.comparing(RatingDescription::getModifiedDate))));
+
+        return latestRatings.values().stream()
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(r -> mapToDTO(r.getUuid(), r))
+                .collect(Collectors.toList());
     }
 
     private RatingInfo mapToDTO(UUID uuid, RatingDescription ratingDescription){
