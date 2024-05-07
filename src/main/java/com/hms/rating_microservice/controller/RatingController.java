@@ -1,6 +1,7 @@
 package com.hms.rating_microservice.controller;
 
 import com.hms.rating_microservice.dto.RatingInfo;
+import com.hms.rating_microservice.entity.Rating;
 import com.hms.rating_microservice.service.RatingCommands;
 import com.hms.rating_microservice.service.RatingQueries;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,20 @@ public class RatingController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RatingInfo> createRating(@RequestBody RatingInfo ratingInfo){
         return new ResponseEntity<>(commands.createRating(ratingInfo), HttpStatus.CREATED);
+    }
+
+    @PostMapping("rating/{id}/delete")
+    public ResponseEntity<String> deleteRating(@PathVariable("id") int ratingId){
+        Rating existingRating = queries.getRatingById(ratingId);
+
+        if (existingRating == null) {
+            return new ResponseEntity<>("Rating with id: "+ratingId+" not found", HttpStatus.NOT_FOUND);
+        }
+
+        RatingInfo rating = new RatingInfo();
+        rating.setRating(existingRating);
+        commands.deleteRating(rating);
+        return new ResponseEntity<>("Rating with id: "+ratingId+" deleted", HttpStatus.OK);
     }
 
 }

@@ -3,6 +3,9 @@ package com.hms.rating_microservice.service.impl;
 import com.hms.rating_microservice.dto.RatingInfo;
 import com.hms.rating_microservice.entity.Rating;
 import com.hms.rating_microservice.entity.RatingDescription;
+import com.hms.rating_microservice.entity.RatingRemoved;
+import com.hms.rating_microservice.repository.RatingDescriptionRepository;
+import com.hms.rating_microservice.repository.RatingRemovedRepository;
 import com.hms.rating_microservice.repository.RatingRepository;
 import com.hms.rating_microservice.service.RatingCommands;
 import jakarta.persistence.EntityManager;
@@ -11,17 +14,24 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class RatingCommandsImpl implements RatingCommands {
 
     private RatingRepository ratingRepository;
 
+    private RatingDescriptionRepository ratingDescriptionRepository;
+    private RatingRemovedRepository ratingRemovedRepository;
+
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
-    public RatingCommandsImpl(RatingRepository ratingRepository) {
+    public RatingCommandsImpl(RatingRepository ratingRepository, RatingDescriptionRepository ratingDescriptionRepository , RatingRemovedRepository ratingRemovedRepository) {
         this.ratingRepository = ratingRepository;
+        this.ratingDescriptionRepository = ratingDescriptionRepository;
+        this.ratingRemovedRepository = ratingRemovedRepository;
     }
 
     @Override
@@ -45,9 +55,9 @@ public class RatingCommandsImpl implements RatingCommands {
         rating.setTitle(ratingInfo.getTitle());
         rating.setText(ratingInfo.getText());
         rating.setScore(ratingInfo.getScore());
-        rating.setModifiedDate(ratingInfo.getModifiedDate());
+        rating.setModifiedDate(LocalDateTime.now());
 
-        RatingDescription newRating = ratingRepository.save(rating);
+        RatingDescription newRating = ratingDescriptionRepository.save(rating);
 
         RatingInfo ratingResponse = new RatingInfo();
         ratingResponse.setId(newRating.getId());
@@ -65,8 +75,14 @@ public class RatingCommandsImpl implements RatingCommands {
 
 
     @Override
-    public RatingInfo deleteRating(RatingInfo ratingInfo) {
-        return null;
-    }
+    @Transactional
+    public void deleteRating(RatingInfo ratingInfo) {
+        Rating existingRating = ratingInfo.getRating();
+        RatingRemoved ratingRemoved = new RatingRemoved();
+        ratingRemoved.setRating(existingRating);
+        ratingRemoved.setRemovedDate(LocalDateTime.now());
+        ratingRemovedRepository.save(ratingRemoved);
 
+        ratingRepository.delete(existingRating);
+    }
 }

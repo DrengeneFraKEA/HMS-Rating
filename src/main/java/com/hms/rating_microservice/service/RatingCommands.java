@@ -4,5 +4,5 @@ import com.hms.rating_microservice.dto.RatingInfo;
 
 public interface RatingCommands {
     RatingInfo createRating(RatingInfo ratingInfo);
-    RatingInfo deleteRating(RatingInfo ratingInfo);
+    void deleteRating(RatingInfo ratingInfo);
 }
