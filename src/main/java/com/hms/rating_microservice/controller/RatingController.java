@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/")
+@CrossOrigin(origins = "http://localhost:44402")
 public class RatingController {
 
     private RatingQueries queries;
