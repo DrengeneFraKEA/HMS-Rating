@@ -67,8 +67,7 @@ public class RatingQueriesImpl  implements RatingQueries {
         ratingInfo.setUuid(uuid);
         ratingInfo.setId(ratingDescription.getId());
         ratingInfo.setRating(ratingDescription.getRating());
-        ratingInfo.setPatientId(ratingDescription.getPatientId());
-        ratingInfo.setDoctorId(ratingDescription.getDoctorId());
+        ratingInfo.setDoctorName(ratingDescription.getDoctorName());
         ratingInfo.setTitle(ratingDescription.getTitle());
         ratingInfo.setText(ratingDescription.getText());
         ratingInfo.setScore(ratingDescription.getScore());

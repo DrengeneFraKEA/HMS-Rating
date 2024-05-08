@@ -49,8 +49,7 @@ public class RatingCommandsImpl implements RatingCommands {
         }
 
         rating.setRating(existingRating);
-        rating.setDoctorId(ratingInfo.getDoctorId());
-        rating.setPatientId(ratingInfo.getPatientId());
+        rating.setDoctorName(ratingInfo.getDoctorName());
         rating.setUuid(ratingInfo.getUuid());
         rating.setTitle(ratingInfo.getTitle());
         rating.setText(ratingInfo.getText());
@@ -62,8 +61,7 @@ public class RatingCommandsImpl implements RatingCommands {
         RatingInfo ratingResponse = new RatingInfo();
         ratingResponse.setId(newRating.getId());
         ratingResponse.setRating(newRating.getRating());
-        ratingResponse.setDoctorId(newRating.getDoctorId());
-        ratingResponse.setPatientId(newRating.getPatientId());
+        ratingResponse.setDoctorName(newRating.getDoctorName());
         ratingResponse.setUuid(newRating.getUuid());
         ratingResponse.setTitle(newRating.getTitle());
         ratingResponse.setText(newRating.getText());

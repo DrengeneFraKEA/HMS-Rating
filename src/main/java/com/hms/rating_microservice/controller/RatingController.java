@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/")
-@CrossOrigin(origins = "http://localhost:44402")
 public class RatingController {
 
     private RatingQueries queries;
@@ -25,17 +24,20 @@ public class RatingController {
     }
 
     @GetMapping("rating")
+    @CrossOrigin(origins = "http://localhost:44402")
     public ResponseEntity<List<RatingInfo>> getAllRatings(){
         return new ResponseEntity<>(queries.getAllRatings(), HttpStatus.OK);
     }
 
     @PostMapping("rating/create")
+    @CrossOrigin(origins = "http://localhost:44402")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RatingInfo> createRating(@RequestBody RatingInfo ratingInfo){
         return new ResponseEntity<>(commands.createRating(ratingInfo), HttpStatus.CREATED);
     }
 
     @PostMapping("rating/{id}/delete")
+    @CrossOrigin(origins = "http://localhost:44402")
     public ResponseEntity<String> deleteRating(@PathVariable("id") int ratingId){
         Rating existingRating = queries.getRatingById(ratingId);
 

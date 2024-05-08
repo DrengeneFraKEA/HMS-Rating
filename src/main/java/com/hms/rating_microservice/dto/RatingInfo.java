@@ -10,8 +10,7 @@ import java.util.UUID;
 public class RatingInfo {
     private int id;
     private Rating rating;
-    private int patientId;
-    private int doctorId;
+    private String doctorName;
     private String title;
     private String text;
     private int score;

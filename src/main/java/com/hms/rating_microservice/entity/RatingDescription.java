@@ -16,10 +16,7 @@ public class RatingDescription {
     private int id;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Rating rating;
-    @Column(name = "patient_id", length = 10)
-    private int patientId;
-    @Column(name = "doctor_id", length = 10)
-    private int doctorId;
+    private String doctorName;
     private String title;
     private String text;
     private UUID uuid;
@@ -43,20 +40,12 @@ public class RatingDescription {
         this.rating = rating;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public String getDoctorName() {
+        return doctorName;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
-
-    public int getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 
     public String getTitle() {
