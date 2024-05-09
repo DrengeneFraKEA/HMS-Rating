@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class RatingCommandsImpl implements RatingCommands {
@@ -37,6 +38,13 @@ public class RatingCommandsImpl implements RatingCommands {
     @Override
     @Transactional
     public RatingInfo createRating(RatingInfo ratingInfo){
+        UUID uuid = ratingInfo.getUuid();
+        RatingDescription existingRatingWithUUID = ratingDescriptionRepository.findByUuid(uuid);
+
+        if (existingRatingWithUUID != null) {
+            return null;
+        }
+
         RatingDescription rating = new RatingDescription();
 
         Rating existingRating = ratingInfo.getRating();
