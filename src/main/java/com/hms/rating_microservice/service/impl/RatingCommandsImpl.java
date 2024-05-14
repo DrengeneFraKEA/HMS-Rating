@@ -40,15 +40,11 @@ public class RatingCommandsImpl implements RatingCommands {
     public RatingInfo createRating(RatingInfo ratingInfo){
         UUID uuid = ratingInfo.getUuid();
         RatingDescription existingRatingWithUUID = ratingDescriptionRepository.findByUuid(uuid);
-
         if (existingRatingWithUUID != null) {
             return null;
         }
-
         RatingDescription rating = new RatingDescription();
-
         Rating existingRating = ratingInfo.getRating();
-
         if (existingRating == null || existingRating.getId() == 0) {
             existingRating = new Rating();
         } else {
