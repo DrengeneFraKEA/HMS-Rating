@@ -1,58 +1,28 @@
 ## Setup Instructions
-1. **Clone the Repository**
-    - Clone this repository to your local machine using the following command:
-      ```
-      git clone git@github.com:DrengeneFraKEA/HMS-Rating.git
-      ```
-
-2. **Open the Project**
-    - Navigate to the project directory in your terminal or file explorer:
-      ```
-      cd rating_microservice
-      ```
-
-3. **Install MySQL Docker Image**
+1. **Install my Images**
      - Ensure you have Docker installed on your system.
-     - Run the following command in your terminal to pull the MySQL Docker image:
+     - Run the following command in your terminal to pull the images:
       ```
-      docker pull mysql
+      docker pull abdimo101/mysql:v1.0
+      docker pull abdimo101/rating_microservice
       ```
 
-4. **Run MySQL Container**
+2. **First run MySQL Container**
     - Start a MySQL container using the following command:
       ```
-      docker run --name=mysql-container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=rating_microservice -d mysql
-      ```
-      Replace `password` with your root password.
-
-5. **Ensure Configuration Consistency**
-    - Ensure that the MySQL configuration in the `application.properties` file matches the settings used when starting the MySQL container:
-      ```
-      spring.datasource.url=jdbc:mysql://localhost:3306/rating_microservice
-      spring.datasource.username=root
-      spring.datasource.password=password
+      docker run --name=rating-mysql -e MYSQL_ROOT_PASSWORD=password123 -e MYSQL_DATABASE=rating_microservice -d abdimo101/mysql:v1.0
       ```
 
-6. **Create Docker Network**
+3. **Create Docker Network**
     - Create a Docker network and connect it to the MySQL container to allow communication between containers:
       ```
       docker network create my-network
-      docker network connect my-network mysql-container
+      docker network connect my-network rating-mysql
       ```
-
-7. **Build the Application**
-    - Click on "Maven" in your IDE to clean and install the project.
-
-8. **Build Docker Image**
-    - Build a Docker image of the Spring Boot application using the provided Dockerfile:
+9. **Run the Rating Container**
+    - Run the Rating container using the following command:
       ```
-      docker build -t my-spring-app .
-      ```
-
-9. **Run Docker Container**
-    - Run the Docker container using the following command:
-      ```
-      docker run --name=spring-container -p 8090:8080 --network=my-network -e MYSQL_HOST=mysql-container -e MYSQL_PORT=3306 -e MYSQL_DB_NAME=rating_microservice -e MYSQL_USER=root -e MYSQL_PASSWORD=password my-spring-app
+      docker run --name=rating-container -p 8090:8080 --network=my-network -e MYSQL_HOST=mysql-container -e MYSQL_PORT=3306 -e MYSQL_DB_NAME=rating_microservice -e MYSQL_USER=root -e MYSQL_PASSWORD=password123 docker pull abdimo101/rating_microservice
       ```
 
 
