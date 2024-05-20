@@ -27,6 +27,11 @@ public class RatingQueriesImpl  implements RatingQueries {
         this.ratingRemovedRepository = ratingRemovedRepository;
     }
 
+    /**
+     * Retrieves all active ratings.
+     *
+     * @return a list of RatingInfo objects representing active ratings
+     */
     @Override
     public List<RatingInfo> getAllRatings() {
         List<RatingDescription> ratings = ratingDescriptionRepository.findAll();
@@ -51,6 +56,12 @@ public class RatingQueriesImpl  implements RatingQueries {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves a rating by its ID.
+     *
+     * @param id the ID of the rating to be retrieved
+     * @return the Rating object if found, or null if not found
+     */
     @Override
     public Rating getRatingById(int id){
         List<RatingDescription> ratings = ratingDescriptionRepository.findAll();
@@ -62,6 +73,13 @@ public class RatingQueriesImpl  implements RatingQueries {
         return latestRating.map(RatingDescription::getRating).orElse(null);
     }
 
+    /**
+     * Maps a RatingDescription entity to a RatingInfo DTO.
+     *
+     * @param uuid the UUID of the rating
+     * @param ratingDescription the RatingDescription entity to be mapped
+     * @return the corresponding RatingInfo DTO
+     */
     private RatingInfo mapToDTO(UUID uuid, RatingDescription ratingDescription){
         RatingInfo ratingInfo = new RatingInfo();
         ratingInfo.setUuid(uuid);

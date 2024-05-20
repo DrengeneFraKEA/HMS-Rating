@@ -35,6 +35,12 @@ public class RatingCommandsImpl implements RatingCommands {
         this.ratingRemovedRepository = ratingRemovedRepository;
     }
 
+    /**
+     * Creates a new rating or updates an existing rating.
+     *
+     * @param ratingInfo the information of the rating to be created or updated
+     * @return the created or updated RatingInfo object, or null if a rating with the same UUID already exists
+     */
     @Override
     @Transactional
     public RatingInfo createRating(RatingInfo ratingInfo){
@@ -75,7 +81,11 @@ public class RatingCommandsImpl implements RatingCommands {
         return ratingResponse;
     }
 
-
+    /**
+     * Deletes an existing rating.
+     *
+     * @param ratingInfo the information of the rating to be deleted
+     */
     @Override
     @Transactional
     public void deleteRating(RatingInfo ratingInfo) {
