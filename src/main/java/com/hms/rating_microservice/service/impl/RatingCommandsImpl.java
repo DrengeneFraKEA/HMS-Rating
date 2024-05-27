@@ -94,7 +94,5 @@ public class RatingCommandsImpl implements RatingCommands {
         ratingRemoved.setRating(existingRating);
         ratingRemoved.setRemovedDate(LocalDateTime.now());
         ratingRemovedRepository.save(ratingRemoved);
-
-        ratingRepository.delete(existingRating);
     }
 }
