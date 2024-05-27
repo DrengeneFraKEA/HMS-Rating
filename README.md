@@ -22,7 +22,7 @@
 9. **Run the Rating Container**
     - Run the Rating container using the following command:
       ```
-      docker run --name=rating-container -p 8090:8080 --network=my-network -e MYSQL_HOST=mysql-container -e MYSQL_PORT=3306 -e MYSQL_DB_NAME=rating_microservice -e MYSQL_USER=root -e MYSQL_PASSWORD=password123 docker pull abdimo101/rating_microservice
+      docker run --name=rating-container -p 8090:8080 --network=my-network -e MYSQL_HOST=mysql-container -e MYSQL_PORT=3306 -e MYSQL_DB_NAME=rating_microservice -e MYSQL_USER=root -e MYSQL_PASSWORD=password123 abdimo101/rating_microservice:v1.0
       ```
 
 
